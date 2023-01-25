@@ -1,5 +1,7 @@
 [//]: # (SPDX-License-Identifier: CC-BY-4.0)
 
+### To spin up a test network, add channels, add chaincode to the instance and add test assets, `cd` into the `test-network` and follow the series of commands at:  https://github.com/georgemac510/hyperledger/blob/main/commands.mdx 
+
 # Hyperledger Fabric Samples
 
 [![Build Status](https://dev.azure.com/Hyperledger/Fabric-Samples/_apis/build/status/Fabric-Samples?branchName=main)](https://dev.azure.com/Hyperledger/Fabric-Samples/_build/latest?definitionId=28&branchName=main)
