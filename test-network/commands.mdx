@@ -90,7 +90,26 @@ Check if all containers have been stopped and deleted:
 
 ### Run sample typescript app:
 
-Start network, create channel and add certificate authorities
+### Setup Logspout to log your activities
+In another terminal,
+
+    cd fabric-samples/test-network
+
+    cp ../commercial-paper/organization/digibank/configuration/cli/monitordocker.sh 
+
+    find . -name monitordocker.sh
+
+    ./monitordocker.sh fabric_test
+
+To stop and remove Logspout:
+
+    docker stop logspout
+    docker rm logspout
+    
+
+
+
+### Start network, create channel and add certificate authorities
 
     cd fabric-samples/test-network
 

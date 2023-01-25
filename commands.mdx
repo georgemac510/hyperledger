@@ -1,4 +1,6 @@
-To create a new network with chaincode
+# Hyperledger Fabric 2.4.7 Installation and Deploying Chaincode(smart contracts)
+
+### To create a new network with chaincode
 
     cd fabric-samples/test-network
     ./network.sh up -ca
@@ -79,6 +81,96 @@ Bring the test network down, then up:
 When bringing network back up, add `-ca` flag to bring the network up with "certificate authorities". Without this, there maybe errors:
 
     ./network.sh up -ca
+
+Check if all containers have been stopped and deleted:
+
+    docker ps -a
+
+
+
+### Run sample typescript app:
+
+### Setup Logspout to log your activities
+In another terminal,
+
+    cd fabric-samples/test-network
+
+    cp ../commercial-paper/organization/digibank/configuration/cli/monitordocker.sh 
+
+    find . -name monitordocker.sh
+
+    ./monitordocker.sh fabric_test
+
+To stop and remove Logspout:
+
+    docker stop logspout
+    docker rm logspout
+    
+
+
+
+### Start network, create channel and add certificate authorities
+
+    cd fabric-samples/test-network
+
+    ./network.sh down
+
+    ./network.sh up createChannel -c mychannel -ca
+
+Deploy the smart contract:
+
+    ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-typescript/ -ccl typescript
+
+In a new terminal, check that the node version is compatible (i.e. 14.17.0 worked for me)
+
+    cd asset-transfer-basic/application-gateway-typescript
+
+    npm install
+
+Check the new files created by `npm`:
+
+    ls 
+
+Output:
+
+    dist
+    node_modules
+    package-lock.json
+    package.json
+    src
+    tsconfig.json
+
+Run the application
+
+    npm start
+
+The output will list several assets that the contract is accounting for and the following error:
+
+        *** Successfully caught the error:
+    EndorseError: 10 ABORTED: failed to endorse transaction, see attached details for more info
+        at ... {
+    code: 10,
+    details: [
+        {
+        address: 'peer0.org1.example.com:7051',
+        message: 'error in simulation: transaction returned with failure: Error: The asset asset70 does not exist',
+        mspId: 'Org1MSP'
+        }
+    ],
+    cause: Error: 10 ABORTED: failed to endorse transaction, see attached details for more info
+        at ... {
+        code: 10,
+        details: 'failed to endorse transaction, see attached details for more info',
+        metadata: Metadata { internalRepr: [Map], options: {} }
+    },
+    transactionId: 'a92980d41eef1d6492d63acd5fbb6ef1db0f53252330ad28e548fedfdb9167fe'
+    }
+
+The error may have other node.js error info along with it. This is the intended output as the error shows a missing asset and the chaincode (smart contract) would not endorse the transaction due to the missing asset.
+
+### Next up: ERC20 token: https://github.com/georgemac510/hyperledger/tree/main/token-erc-20
+
+
 
 
 
