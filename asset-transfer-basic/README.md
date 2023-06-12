@@ -38,8 +38,46 @@ The Fabric test network is used to deploy and run this sample. Follow these step
 
 1. Create the test network and a channel (from the `test-network` folder).
    ```
+   ./network.sh down
+
    ./network.sh up createChannel -c mychannel -ca
    ```
+For javascript:
+
+   ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript
+
+2. Change directory to `application-javascript`
+
+   cd ../asset-transfer-basic/application-javascript/
+
+
+3. Set admin user:
+
+Delete the wallet/ directory in application-javascript/
+
+   npm start
+   Sign in
+   admin
+   admin
+
+* This will give an error, but creates your admin password
+
+4. Set new user
+
+Click on the 3 lines at the top-right and go to `Register`.
+
+Add a user name (in my case John), then choose `Creator`, then hit submit.
+
+Go into `wallet/` and create a new file `user-password.txt`. Copy and paste the `privateKey` from your `user.id` file into `user-password.txt`. Remove all instances of `\r\n` in the `privateKey`, then save the file.
+
+Logout
+
+5. Log into the app with your new username and password from `user-password.txt`
+
+6. Click on 3 lines at the top-right again and choose `Add asset`. Fill in the data requested, upload vehicle image and hit submit. Your image will be uploaded to IPFS and will render when you click on `All assets`, then `view` next to the newly added asset.
+
+
+## General directions from Hyperledger Fabric samples
 
 1. Deploy one of the smart contract implementations (from the `test-network` folder).
    ```

@@ -1,0 +1,13 @@
+    <h1 class="title">
+        Search Result
+    </h1>
+    <div style="width: 400px; margin: 0px auto; font-size: 20px;">
+        <%for(var i=0; i < label.length; i++){%>
+            <div style="clear: both; float: left; color: cornsilk; width: 100px;"><%=label[i]%></div>
+            <%if(i < 7){%>
+                <div style="float: left; width: 200px; margin-left: 100px;"><%=values[i]%></div>
+            <%} else {%>
+                <a href="https://ipfs.infura.io/ipfs/<%=values[i]%>" style="color: rgb(98, 98, 98); float: left; width: 200px; margin-left: 100px;" target="_blank">View</a>
+            <%}%>
+        <%}%>
+    </div>
